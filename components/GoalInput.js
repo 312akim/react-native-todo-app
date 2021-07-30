@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Modal } from 'react-native';
 
 const GoalInput = props => {
     const [enteredGoal, setEnteredGoal] = useState('');
@@ -11,7 +11,7 @@ const GoalInput = props => {
     const addGoalHandler = () => {
         if (enteredGoal !== '') {
             // Better syntax, always ensures state is up to date.
-            props.setCourseGoalsHandler(enteredGoal);
+            props.onAddGoal(enteredGoal);
         //  setCourseGoals([...courseGoals, enteredGoal]);
     
             setEnteredGoal('');
@@ -21,16 +21,20 @@ const GoalInput = props => {
     }
 
     return (
-        <View style={styles.inputContainer}>
-            <TextInput
-            placeholder="Course Goal" 
-            style={styles.input} 
-            onChangeText={goalInputHandler}
-            value={enteredGoal}  
-            />
-            <Button title="ADD" onPress={addGoalHandler} />
-            <Button title="Reset" onPress={props.resetGoalHandler} />
-        </View>
+        <Modal visible={props.visible} animationType="slide">
+            <View style={styles.inputContainer}>
+                <TextInput
+                placeholder="Course Goal" 
+                style={styles.input} 
+                onChangeText={goalInputHandler}
+                value={enteredGoal}  
+                />
+                <View style={styles.buttonContainer}>
+                    <Button title="ADD" onPress={addGoalHandler} />
+                    <Button title="Reset" onPress={props.resetGoalHandler} />
+                </View>
+            </View>
+        </Modal>
     );
 }
 
@@ -40,11 +44,17 @@ const styles = StyleSheet.create({
         borderColor: "black",
         borderWidth: 1,
         padding: 10,
+        marginBottom: 10,
       },
     inputContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flex: 1,
+        justifyContent: "center",
         alignItems: "center",
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        width: "100%",
     },
 });
 
