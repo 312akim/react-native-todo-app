@@ -10,19 +10,16 @@ const GoalInput = props => {
 
     const addGoalHandler = () => {
         if (enteredGoal !== '') {
-            // Better syntax, always ensures state is up to date.
             props.onAddGoal(enteredGoal);
-        //  setCourseGoals([...courseGoals, enteredGoal]);
-    
             setEnteredGoal('');
-            props.onGoalSubmit();
+            props.closeModalHandler();
         } else {
             console.log("nothing entered");
         }
     }
 
     const onCancelHandler = () => {
-        props.onGoalSubmit();
+        props.closeModalHandler();
         setEnteredGoal('');
     }
 
@@ -36,11 +33,15 @@ const GoalInput = props => {
                 value={enteredGoal}  
                 />
                 <View style={styles.buttonContainer}>
-                    <Button title="ADD" onPress={addGoalHandler} />
-                    <View style={styles.resetButton}>
+                    <View style={styles.modalButton}>
+                        <Button title="ADD" onPress={addGoalHandler} />
+                    </View>
+                    <View style={styles.modalButton}>
                         <Button title="Reset" onPress={props.resetGoalHandler} />
                     </View>
-                    <Button title="Cancel" onPress={() => onCancelHandler()} />
+                    <View style={styles.modalButton}>
+                        <Button title="Cancel" color="red" onPress={() => onCancelHandler()} />
+                    </View>
                 </View>
             </View>
         </Modal>
@@ -62,11 +63,11 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: "row",
-        justifyContent: "center",
-        width: "100%",
+        width: "60%",
     },
-    resetButton: {
-        marginHorizontal: 5,
+    modalButton: {
+        flex: 1,
+        marginHorizontal: 3,
     }
 });
 

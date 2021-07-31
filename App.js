@@ -13,8 +13,10 @@ const App = () => {
   }
 
   const setCourseGoalsHandler = (enteredGoal) => {
+    // Better syntax, always ensures state is up to date.
     setCourseGoals(currentGoals => [
       ...currentGoals, 
+      // setCourseGoals([...courseGoals, enteredGoal]);
       { id: Math.random().toString(), value: enteredGoal }
     ]);
   }
@@ -25,14 +27,14 @@ const App = () => {
     })
   }
 
-  const onGoalSubmit = () => {
+  const closeModalHandler = () => {
     setIsAddMode(false);
   }
 
   return (
     <View style={styles.screen}>
       <Button title={"Add new goal"} onPress={() => setIsAddMode(true)}/>
-      <GoalInput visible={isAddMode} resetGoalHandler={resetGoalHandler} onAddGoal={setCourseGoalsHandler} onGoalSubmit={onGoalSubmit}/>
+      <GoalInput visible={isAddMode} resetGoalHandler={resetGoalHandler} onAddGoal={setCourseGoalsHandler} closeModalHandler={closeModalHandler}/>
       <View>
           <Text>Goals Below...</Text>
           <FlatList data={courseGoals} renderItem={itemData => (<GoalItem id={itemData.item.id} onDelete={removeGoalHandler} title={itemData.item.value} />)} />
