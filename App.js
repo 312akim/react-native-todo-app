@@ -25,10 +25,14 @@ const App = () => {
     })
   }
 
+  const onGoalSubmit = () => {
+    setIsAddMode(false);
+  }
+
   return (
     <View style={styles.screen}>
       <Button title={"Add new goal"} onPress={() => setIsAddMode(true)}/>
-      <GoalInput visible={isAddMode} resetGoalHandler={resetGoalHandler} onAddGoal={setCourseGoalsHandler} />
+      <GoalInput visible={isAddMode} resetGoalHandler={resetGoalHandler} onAddGoal={setCourseGoalsHandler} onGoalSubmit={onGoalSubmit}/>
       <View>
           <Text>Goals Below...</Text>
           <FlatList data={courseGoals} renderItem={itemData => (<GoalItem id={itemData.item.id} onDelete={removeGoalHandler} title={itemData.item.value} />)} />

@@ -15,6 +15,7 @@ const GoalInput = props => {
         //  setCourseGoals([...courseGoals, enteredGoal]);
     
             setEnteredGoal('');
+            props.onGoalSubmit();
         } else {
             console.log("nothing entered");
         }
