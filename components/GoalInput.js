@@ -21,6 +21,11 @@ const GoalInput = props => {
         }
     }
 
+    const onCancelHandler = () => {
+        props.onGoalSubmit();
+        setEnteredGoal('');
+    }
+
     return (
         <Modal visible={props.visible} animationType="slide">
             <View style={styles.inputContainer}>
@@ -32,7 +37,10 @@ const GoalInput = props => {
                 />
                 <View style={styles.buttonContainer}>
                     <Button title="ADD" onPress={addGoalHandler} />
-                    <Button title="Reset" onPress={props.resetGoalHandler} />
+                    <View style={styles.resetButton}>
+                        <Button title="Reset" onPress={props.resetGoalHandler} />
+                    </View>
+                    <Button title="Cancel" onPress={() => onCancelHandler()} />
                 </View>
             </View>
         </Modal>
@@ -57,6 +65,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         width: "100%",
     },
+    resetButton: {
+        marginHorizontal: 5,
+    }
 });
 
 export default GoalInput;
